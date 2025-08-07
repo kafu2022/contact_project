@@ -17,6 +17,20 @@ class MyInfoInputPageState extends State<MyInfoInputPage> {
   final _formKey = GlobalKey<FormState>();
   String? name, phone, address, company, email;
 
+  Widget _buildTextFormField({
+    required String label,
+    TextInputType? keyboardType,
+    FormFieldSetter<String>? onSaved,
+    FormFieldValidator<String>? validator,
+  }) {
+    return TextFormField(
+      decoration: InputDecoration(labelText: label),
+      keyboardType: keyboardType,
+      onSaved: onSaved,
+      validator: validator,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,8 +41,8 @@ class MyInfoInputPageState extends State<MyInfoInputPage> {
           key: _formKey,
           child: ListView(
             children: [
-              TextFormField(
-                decoration: InputDecoration(labelText: '이름'),
+              _buildTextFormField(
+                label: '이름',
                 onSaved: (value) => name = value,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
@@ -37,8 +51,8 @@ class MyInfoInputPageState extends State<MyInfoInputPage> {
                   return null;
                 },
               ),
-              TextFormField(
-                decoration: InputDecoration(labelText: '전화번호'),
+              _buildTextFormField(
+                label: '전화번호',
                 keyboardType: TextInputType.phone,
                 onSaved: (value) => phone = value,
                 validator: (value) {
@@ -48,16 +62,16 @@ class MyInfoInputPageState extends State<MyInfoInputPage> {
                   return null;
                 },
               ),
-              TextFormField(
-                decoration: InputDecoration(labelText: '주소'),
+              _buildTextFormField(
+                label: '주소',
                 onSaved: (value) => address = value,
               ),
-              TextFormField(
-                decoration: InputDecoration(labelText: '소속'),
+              _buildTextFormField(
+                label: '소속',
                 onSaved: (value) => company = value,
               ),
-              TextFormField(
-                decoration: InputDecoration(labelText: '이메일'),
+              _buildTextFormField(
+                label: '이메일',
                 keyboardType: TextInputType.emailAddress,
                 onSaved: (value) => email = value,
                 validator: (value) {

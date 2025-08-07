@@ -42,10 +42,9 @@ class _ContactDetailPageState extends State<ContactDetailPage> {
       await DatabaseHelper.instance.updateContact(updatedContact);
     } catch (e) {
       if (mounted) {
-        final currentContext = context;
-        ScaffoldMessenger.of(
-          currentContext,
-        ).showSnackBar(SnackBar(content: Text('연락처 저장 실패: $e')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('연락처 저장 실패: $e')),
+        );
       }
     }
   }
@@ -77,16 +76,19 @@ class _ContactDetailPageState extends State<ContactDetailPage> {
                   contact = updatedContact;
                 });
                 await _persistContactUpdate(updatedContact);
-                Future.delayed(Duration.zero, () {
-                  Navigator.pushAndRemoveUntil(
-                    currentContext,
-                    MaterialPageRoute(
-                      builder: (_) =>
-                          ContactDetailPage(contact: updatedContact),
-                    ),
-                        (route) => route.isFirst,
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('연락처가 수정되었습니다.')),
                   );
-                });
+                }
+                // Navigator.pushAndRemoveUntil(
+                //   currentContext,
+                //   MaterialPageRoute(
+                //     builder: (_) =>
+                //         ContactDetailPage(contact: updatedContact),
+                //   ),
+                //       (route) => route.isFirst,
+                // );
               }
             },
           ),

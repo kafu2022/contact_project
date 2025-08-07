@@ -20,8 +20,16 @@ class _ContactHomePageState extends State<ContactHomePage> {
       MaterialPageRoute(
         builder: (context) => MultiStepUserInfoPage(
           onComplete: (contact) async {
-            await DatabaseHelper.instance.saveMyInfo(contact);
-            Navigator.pop(context, contact);
+            try {
+              await DatabaseHelper.instance.saveMyInfo(contact);
+              Navigator.pop(context, contact);
+            } catch (e) {
+              if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('내 정보 저장 실패: $e')),
+                );
+              }
+            }
           },
         ),
       ),

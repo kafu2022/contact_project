@@ -81,6 +81,22 @@ class ContactAddSheetState extends State<ContactAddSheet> {
     return await DatabaseHelper.instance.getContacts();
   }
 
+  Widget _buildTextFormField({
+    required String label,
+    String? initialValue,
+    TextInputType? keyboardType,
+    FormFieldSetter<String>? onSaved,
+    FormFieldValidator<String>? validator,
+  }) {
+    return TextFormField(
+      decoration: InputDecoration(labelText: label),
+      initialValue: initialValue,
+      keyboardType: keyboardType,
+      onSaved: onSaved,
+      validator: validator,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -113,9 +129,9 @@ class ContactAddSheetState extends State<ContactAddSheet> {
                   key: _formKey,
                   child: Column(
                     children: [
-                      TextFormField(
+                      _buildTextFormField(
+                        label: '이름',
                         initialValue: name,
-                        decoration: InputDecoration(labelText: '이름'),
                         onSaved: (value) => name = value,
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
@@ -124,9 +140,9 @@ class ContactAddSheetState extends State<ContactAddSheet> {
                           return null;
                         },
                       ),
-                      TextFormField(
+                      _buildTextFormField(
+                        label: '전화번호',
                         initialValue: phone,
-                        decoration: InputDecoration(labelText: '전화번호'),
                         keyboardType: TextInputType.phone,
                         onSaved: (value) => phone = value,
                         validator: (value) {
@@ -136,19 +152,19 @@ class ContactAddSheetState extends State<ContactAddSheet> {
                           return null;
                         },
                       ),
-                      TextFormField(
+                      _buildTextFormField(
+                        label: '주소',
                         initialValue: address,
-                        decoration: InputDecoration(labelText: '주소'),
                         onSaved: (value) => address = value,
                       ),
-                      TextFormField(
+                      _buildTextFormField(
+                        label: '소속',
                         initialValue: company,
-                        decoration: InputDecoration(labelText: '소속'),
                         onSaved: (value) => company = value,
                       ),
-                      TextFormField(
+                      _buildTextFormField(
+                        label: '이메일',
                         initialValue: email,
-                        decoration: InputDecoration(labelText: '이메일'),
                         keyboardType: TextInputType.emailAddress,
                         onSaved: (value) => email = value,
                         validator: (value) {

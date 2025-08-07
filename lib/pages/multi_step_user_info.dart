@@ -220,16 +220,29 @@ class _MultiStepUserInfoPageState extends State<MultiStepUserInfoPage> {
                   backgroundColor: Color(0xFFdcdefa),
                 ),
                 onPressed: () {
-                  final contact = Contact(
-                    id: const Uuid().v4(),
-                    name: name!,
-                    phone: phone!,
-                    address: address ?? '',
-                    company: company ?? '',
-                    email: email ?? '',
-                    imagePath: imageFile?.path,
-                  );
-                  widget.onComplete(contact);
+                  try {
+                    final contact = Contact(
+                      id: const Uuid().v4(),
+                      name: name!,
+                      phone: phone!,
+                      address: address ?? '',
+                      company: company ?? '',
+                      email: email ?? '',
+                      imagePath: imageFile?.path,
+                    );
+                    widget.onComplete(contact);
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('사용자 정보가 저장되었습니다.')),
+                      );
+                    }
+                  } catch (e) {
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('사용자 정보 저장 실패: $e')),
+                      );
+                    }
+                  }
                 },
                 child: Text('완료', style: TextStyle(color: Colors.black)),
               ),

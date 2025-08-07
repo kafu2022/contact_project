@@ -1,5 +1,3 @@
-import 'package:uuid/uuid.dart';
-
 class Contact {
   final String id;
   final String name;
@@ -20,7 +18,7 @@ class Contact {
   });
 
   factory Contact.fromMap(Map<String, dynamic> map) => Contact(
-    id: map['id'] ?? const Uuid().v4(),
+    id: map['id'] ?? (throw ArgumentError('Missing contact id')),
     name: map['name'],
     phone: map['phone'],
     address: map['address'],
@@ -48,9 +46,7 @@ class Contact {
       imagePath: imagePath ?? this.imagePath,
     );
   }
-}
 
-extension ContactSerializer on Contact {
   Map<String, dynamic> toMap() => {
     'id': id,
     'name': name,

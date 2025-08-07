@@ -100,7 +100,7 @@ class MyInfoInputPageState extends State<MyInfoInputPage> {
                     );
                     try {
                       SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
+                          await SharedPreferences.getInstance();
                       await prefs.setBool('isInitialized', true);
                       await prefs.setString(
                         'myInfo',

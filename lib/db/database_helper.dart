@@ -19,11 +19,7 @@ class DatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, dbName);
 
-    return await openDatabase(
-      path,
-      version: 1,
-      onCreate: _createDB,
-    );
+    return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
   Future<void> _createDB(Database db, int version) async {
@@ -90,11 +86,7 @@ class DatabaseHelper {
   // 연락처 삭제
   Future<void> deleteContact(String id) async {
     final db = await database;
-    await db.delete(
-      'contacts',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    await db.delete('contacts', where: 'id = ?', whereArgs: [id]);
   }
 
   // 사용자 정보 저장
@@ -120,11 +112,10 @@ class DatabaseHelper {
   // 초기 실행 여부 저장
   Future<void> setInitialized(bool value) async {
     final db = await database;
-    await db.insert(
-      'metadata',
-      {'key': 'isInitialized', 'value': value ? 'true' : 'false'},
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    await db.insert('metadata', {
+      'key': 'isInitialized',
+      'value': value ? 'true' : 'false',
+    }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   // 초기 실행 여부 조회
@@ -144,11 +135,10 @@ class DatabaseHelper {
   // 검색어 저장
   Future<void> saveSearchQuery(String query) async {
     final db = await database;
-    await db.insert(
-      'metadata',
-      {'key': 'searchQuery', 'value': query},
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    await db.insert('metadata', {
+      'key': 'searchQuery',
+      'value': query,
+    }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   // 검색어 불러오기

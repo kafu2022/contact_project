@@ -22,7 +22,10 @@ class _MultiStepUserInfoPageState extends State<MultiStepUserInfoPage> {
 
   final picker = ImagePicker();
 
-  final List<TextEditingController> _controllers = List.generate(5, (_) => TextEditingController());
+  final List<TextEditingController> _controllers = List.generate(
+    5,
+    (_) => TextEditingController(),
+  );
   final List<FocusNode> _focusNodes = List.generate(5, (_) => FocusNode());
 
   void _next() {
@@ -78,7 +81,12 @@ class _MultiStepUserInfoPageState extends State<MultiStepUserInfoPage> {
 
   Widget _buildStepContent() {
     List<Widget> steps = [
-      _inputStep(label: '이름', required: true, onSaved: (v) => name = v, stepIndex: 0),
+      _inputStep(
+        label: '이름',
+        required: true,
+        onSaved: (v) => name = v,
+        stepIndex: 0,
+      ),
       _inputStep(
         label: '전화번호',
         required: true,
@@ -140,10 +148,7 @@ class _MultiStepUserInfoPageState extends State<MultiStepUserInfoPage> {
                   decoration: InputDecoration(
                     labelText: required ? '$label' : '$label (선택사항)',
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.grey,
-                        width: 2.0,
-                      ),
+                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -178,15 +183,16 @@ class _MultiStepUserInfoPageState extends State<MultiStepUserInfoPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFFdcdefa),
-                        ),
-                        onPressed: () {
-                          if (!(stepFormKey.currentState?.validate() ?? false)) return;
-                          stepFormKey.currentState?.save();
-                          _next();
-                        },
-                        child: Text('다음', style: TextStyle(color: Colors.black))
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFFdcdefa),
+                      ),
+                      onPressed: () {
+                        if (!(stepFormKey.currentState?.validate() ?? false))
+                          {return;}
+                        stepFormKey.currentState?.save();
+                        _next();
+                      },
+                      child: Text('다음', style: TextStyle(color: Colors.black)),
                     ),
                   ],
                 ),

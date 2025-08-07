@@ -25,9 +25,9 @@ class _ContactHomePageState extends State<ContactHomePage> {
               Navigator.pop(context, contact);
             } catch (e) {
               if (mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('내 정보 저장 실패: $e')),
-                );
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text('내 정보 저장 실패: $e')));
               }
             }
           },
@@ -423,7 +423,9 @@ class _ContactHomePageState extends State<ContactHomePage> {
                       _filterContacts(_searchController.text);
                     });
                     try {
-                      await DatabaseHelper.instance.updateContact(updatedContact);
+                      await DatabaseHelper.instance.updateContact(
+                        updatedContact,
+                      );
                     } catch (e) {
                       if (mounted) {
                         ScaffoldMessenger.of(currentContext).showSnackBar(

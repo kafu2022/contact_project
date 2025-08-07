@@ -5,7 +5,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 import 'package:contact/db/database_helper.dart';
 
-
 class ContactAddSheet extends StatefulWidget {
   final Function(Contact) onAdd;
   final Contact? initialContact;
@@ -116,13 +115,13 @@ class ContactAddSheetState extends State<ContactAddSheet> {
                 SizedBox(height: 12),
                 _imageFile != null
                     ? CircleAvatar(
-                  radius: 40,
-                  backgroundImage: FileImage(_imageFile!),
-                )
+                        radius: 40,
+                        backgroundImage: FileImage(_imageFile!),
+                      )
                     : CircleAvatar(
-                  radius: 40,
-                  child: Icon(Icons.person, size: 40),
-                ),
+                        radius: 40,
+                        child: Icon(Icons.person, size: 40),
+                      ),
                 TextButton(onPressed: _pickImage, child: Text('사진 추가')),
                 SizedBox(height: 16),
                 Form(
@@ -195,10 +194,10 @@ class ContactAddSheetState extends State<ContactAddSheet> {
                                 final trimmedPhone = phone?.trim() ?? '';
                                 // Check for duplicates
                                 final existingContacts =
-                                await _getExistingContacts();
+                                    await _getExistingContacts();
                                 final isDuplicate = existingContacts.any(
-                                      (c) =>
-                                  c.name == trimmedName &&
+                                  (c) =>
+                                      c.name == trimmedName &&
                                       c.phone == trimmedPhone &&
                                       (widget.initialContact == null ||
                                           c.id != widget.initialContact!.id),
@@ -217,7 +216,7 @@ class ContactAddSheetState extends State<ContactAddSheet> {
                                 }
                                 final updatedContact = Contact(
                                   id:
-                                  widget.initialContact?.id ??
+                                      widget.initialContact?.id ??
                                       const Uuid().v4(),
                                   name: trimmedName,
                                   phone: trimmedPhone,
@@ -225,7 +224,7 @@ class ContactAddSheetState extends State<ContactAddSheet> {
                                   company: company,
                                   email: email,
                                   imagePath:
-                                  _imageFile?.path ??
+                                      _imageFile?.path ??
                                       widget.initialContact?.imagePath,
                                 );
                                 widget.onAdd(updatedContact);

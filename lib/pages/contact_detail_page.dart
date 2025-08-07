@@ -42,9 +42,9 @@ class _ContactDetailPageState extends State<ContactDetailPage> {
       await DatabaseHelper.instance.updateContact(updatedContact);
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('연락처 저장 실패: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('연락처 저장 실패: $e')));
       }
     }
   }
@@ -77,9 +77,9 @@ class _ContactDetailPageState extends State<ContactDetailPage> {
                 });
                 await _persistContactUpdate(updatedContact);
                 if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('연락처가 수정되었습니다.')),
-                  );
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text('연락처가 수정되었습니다.')));
                 }
                 // Navigator.pushAndRemoveUntil(
                 //   currentContext,
@@ -103,19 +103,19 @@ class _ContactDetailPageState extends State<ContactDetailPage> {
                 GestureDetector(
                   onTap: contact.imagePath != null
                       ? () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => Scaffold(
-                          backgroundColor: Colors.black,
-                          appBar: AppBar(backgroundColor: Colors.black),
-                          body: Center(
-                            child: Image.file(File(contact.imagePath!)),
-                          ),
-                        ),
-                      ),
-                    );
-                  }
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => Scaffold(
+                                backgroundColor: Colors.black,
+                                appBar: AppBar(backgroundColor: Colors.black),
+                                body: Center(
+                                  child: Image.file(File(contact.imagePath!)),
+                                ),
+                              ),
+                            ),
+                          );
+                        }
                       : null,
                   child: CircleAvatar(
                     radius: 30,
@@ -124,9 +124,9 @@ class _ContactDetailPageState extends State<ContactDetailPage> {
                         : null,
                     child: contact.imagePath == null
                         ? Text(
-                      contact.name.substring(0, 1),
-                      style: const TextStyle(fontSize: 24),
-                    )
+                            contact.name.substring(0, 1),
+                            style: const TextStyle(fontSize: 24),
+                          )
                         : null,
                   ),
                 ),

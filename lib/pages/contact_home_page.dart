@@ -77,9 +77,9 @@ class _ContactHomePageState extends State<ContactHomePage> {
     await _filterContacts(storedQuery);
     setState(() {});
 
-    if (isFirstLaunch) {
-      await DatabaseHelper.instance.setInitialized(true);
-      Future.delayed(Duration.zero, () {
+    // Show multi-step info page if myInfo is null or missing a name
+    if (myInfo == null || (myInfo!.name.isEmpty)) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         _showMultiStepInfoPage();
       });
     }

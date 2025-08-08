@@ -34,7 +34,15 @@ class _MultiStepUserInfoPageState extends State<MultiStepUserInfoPage> {
       _controller.nextPage(
         duration: Duration(milliseconds: 300),
         curve: Curves.easeInOut,
-      );
+      ).then((_) async {
+        if (currentStep >= 1 && currentStep <= 4) {
+          // Delay to ensure the page transition is complete before requesting focus
+          await Future.delayed(Duration(milliseconds: 100));
+          if (mounted) {
+            FocusScope.of(context).requestFocus(_focusNodes[currentStep]);
+          }
+        }
+      });
     } else {
       Contact contact = Contact(
         id: const Uuid().v4(),
@@ -117,12 +125,6 @@ class _MultiStepUserInfoPageState extends State<MultiStepUserInfoPage> {
   }) {
     final controller = _controllers[stepIndex];
     final focusNode = _focusNodes[stepIndex];
-
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      if (stepIndex > 0) {
-        FocusScope.of(context).requestFocus(focusNode);
-      }
-    });
 
     final stepFormKey = GlobalKey<FormState>();
 
